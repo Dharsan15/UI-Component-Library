@@ -1,0 +1,77 @@
+/* Custom overrides to ensure proper rendering on a dark background */
+code[class*="language-"], pre[class*="language-"] {
+    background: none !important;
+    color: #fff;
+  }
+  
+  .token.comment,
+  .token.prolog,
+  .token.doctype,
+  .token.cdata {
+    color: #999;
+  }
+  
+  .token.punctuation {
+    color: #ccc;
+  }
+  
+  .token.property,
+  .token.tag,
+  .token.constant,
+  .token.symbol,
+  .token.deleted {
+    color: #e2777a;
+  }
+  
+  .token.boolean,
+  .token.number {
+    color: #e2777a;
+  }
+  
+  .token.selector,
+  .token.attr-name,
+  .token.string,
+  .token.char,
+  .token.builtin,
+  .token.inserted {
+    color: #a9dc76;
+  }
+  
+  .token.operator,
+  .token.entity,
+  .token.url,
+  .language-css .token.string,
+  .style .token.string {
+    color: #f8c555;
+  }
+  
+  .token.atrule,
+  .token.attr-value,
+  .token.keyword {
+    color: #c792ea;
+  }
+  
+  .token.function,
+  .token.class-name {
+    color: #f8c555;
+  }
+  
+  .token.regex,
+  .token.important,
+  .token.variable {
+    color: #f8c555;
+  }
+  
+  .token.important,
+  .token.bold {
+    font-weight: bold;
+  }
+  
+  .token.italic {
+    font-style: italic;
+  }
+  
+  .token.entity {
+    cursor: help;
+  }
+  
