@@ -17,6 +17,7 @@ import SignUp from "./components/SignUp";
 import AccordianShowCaseComponent from "./components/showcase/AccordianShowCaseComponent";
 import ButtonShowCaseComponent from "./components/ButtonShowCaseComponent";
 import ComponentName from "./components/DesignToCode/Components/LandingPage";
+import FileUpload from "./components/example";
 
 const App = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const App = createBrowserRouter([
   {
     path: "/designtocode",
     element: <ComponentName />,
+  },
+  {
+    path: "/designtocode/upload",
+    element: <FileUpload />,
   },
   {
     path: "/login",

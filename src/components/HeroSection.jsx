@@ -33,11 +33,14 @@ export default function Example() {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
+            {/* {navigation.map((item) => (
               <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
                 {item.name}
               </a>
-            ))}
+            ))} */}
+            <Link to ="/components/Accordian" className="text-sm font-semibold leading-6 text-gray-900"> Components </Link>
+            <Link to ="/designtocode" className="text-sm font-semibold leading-6 text-gray-900"> Design to Code </Link>
+            <Link to ="/" className="text-sm font-semibold leading-6 text-gray-900"> Templates </Link>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link to="/login">
@@ -110,7 +113,7 @@ export default function Example() {
         <div className="mx-auto max-w-2xl py-32 sm:py-20 lg:py-32">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-             Your One Stop Destination to Build Your Frontend Faster{" "}
+              Your One Stop Destination to Build Your Frontend Faster{" "}
               <a href="#" className="font-semibold ml-2 text-indigo-600">
                 <span aria-hidden="true" className="absolute inset-0" />
                 Learn more <span aria-hidden="true">&rarr;</span>
@@ -130,7 +133,6 @@ export default function Example() {
               </Link>
               <button>
                 <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                  
                   Explore <span aria-hidden="true">→</span>
                 </a>
               </button>

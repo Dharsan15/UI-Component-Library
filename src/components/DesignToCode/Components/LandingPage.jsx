@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const ComponentName = () => {
   const [expanded, setExpanded] = useState(false); // Use state to manage expanded menu
@@ -184,7 +185,7 @@ const ComponentName = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                Try Now
+                <Link to="/designtocode/upload"> Try Now </Link>
               </button>
             </div>
           </div>
