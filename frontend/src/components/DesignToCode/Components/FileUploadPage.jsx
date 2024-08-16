@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
@@ -21,15 +21,26 @@ const uploadIcon = (
   </svg>
 );
 
+const LoadingModal = () => (
+  <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50">
+    <div className="flex items-center justify-center space-x-2">
+      <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+      <span className="text-white text-lg">Your Code is Being Generated...</span>
+    </div>
+  </div>
+);
+
 const FileUpload = () => {
   const [fileName, setFileName] = useState(null);
   const [fileSize, setFileSize] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadError, setUploadError] = useState(null);
-  const [isCodeGenerated, setisCodeGenerated] = useState(false);
-  const [GeneratedCode, setGeneratedCode] = useState(null);
+  const [isCodeGenerated, setIsCodeGenerated] = useState(false);
+  const [generatedCode, setGeneratedCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fileInputRef = useRef(null);
+  const editorRef = useRef(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -51,6 +62,7 @@ const FileUpload = () => {
     formData.append("file", file);
 
     try {
+      setIsLoading(true);
       const response = await axios.post("http://localhost:3000/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -61,46 +73,58 @@ const FileUpload = () => {
         },
       });
 
-      console.log(response);
-
-      setisCodeGenerated(true);
+      setIsCodeGenerated(true);
       setGeneratedCode(response.data.result);
-
-      console.log(response.data.result);
 
       setFileName(null);
       setFileSize(null);
       setUploadProgress(0);
       setUploadError(null);
+
+      if (editorRef.current) {
+        editorRef.current.scrollTop = 0;
+      }
     } catch (error) {
       console.error("Error uploading data:", error);
       setUploadError("Error uploading file. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (isCodeGenerated && editorRef.current) {
+      editorRef.current.scrollTop = 0;
+    }
+  }, [isCodeGenerated]);
+
   return (
     <>
-      {/* <h1 className="text-3xl"> Upload Your Design</h1> */}
-      <div className="flex  w-full  h-full items-center justify-center">
+      {isLoading && <LoadingModal />}
+      <div className="flex w-full h-full items-center justify-center">
         {isCodeGenerated && (
-          <div className="flex  w-full mt-[50rem] mx-11 items-center justify-center">
-            <Editor
-              value={GeneratedCode}
-              padding={23}
-              highlight={(GeneratedCode) => highlight(GeneratedCode, languages.js, "javascript")}
-              style={{
-                fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 15,
-                backgroundColor: "#000",
-                color: "#fff",
-                marginTop: 1300,
-                marginBottom: 50,
-              }}
-            />
+          <div className="flex w-full my-5 mx-5  ">
+            {" "}
+            <div className="w-full  bg-black p-4 rounded-md shadow-lg">
+              <div ref={editorRef} className="overflow-y-auto max-h-[90vh]">
+                <Editor
+                  value={generatedCode}
+                  padding={23}
+                  highlight={(code) => highlight(code, languages.js, "javascript")}
+                  style={{
+                    fontFamily: '"Fira code", "Fira Mono", monospace',
+                    fontSize: 15,
+                    backgroundColor: "#000",
+                    color: "#fff",
+                    lineHeight: 1.5,
+                  }}
+                />
+              </div>
+            </div>
           </div>
         )}
 
-        <div className={` ${isCodeGenerated ? "hidden" : ""} flex  w-full h-full items-center justify-center`}>
+        <div className={` ${isCodeGenerated ? "hidden" : ""} flex w-full h-full items-center justify-center`}>
           <div className="bg-gray-100 rounded-lg shadow-md p-6 w-[450px]">
             <div className="flex justify-between items-start">
               <h2 className="text-lg font-medium text-gray-900">Upload file</h2>
@@ -144,9 +168,7 @@ const FileUpload = () => {
                     strokeWidth={1.5}
                     stroke="#22C55E"
                     className="w-4 h-4 mr-2"
-                  >
-                    {/* Replace with your preferred Excel icon SVG code */}
-                  </svg>
+                  ></svg>
                   <div>
                     <p className="text-sm font-medium text-gray-900">{fileName}</p>
                     <p className="text-xs text-gray-500">{fileSize} MB</p>
@@ -184,9 +206,7 @@ const FileUpload = () => {
                   strokeWidth={1.5}
                   stroke="currentColor"
                   className="w-4 h-4 mr-1"
-                >
-                  {/* Replace with your preferred question mark icon SVG code */}
-                </svg>
+                ></svg>
               </a>
               <button
                 className="px-4 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none"

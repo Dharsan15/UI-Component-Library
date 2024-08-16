@@ -12,6 +12,9 @@ import WelcomePage from "./components/DesignToCode/DesignToCodeHome.jsx";
 import TemplatesLandingPage from "./templates/TemplatesLandingPage.jsx";
 import TemplatesPage from "./templates/TemplatesPage.jsx";
 import LogoCloudShowCasePage from "./components/showcase/pages/LogoCloudShowCasePage.jsx";
+import DropDownShowCase from "./components/showcase/pages/DropDownShowCase.jsx";
+import TabsShowCase from "./components/showcase/pages/TabsShowCase.jsx";
+import InputBoxShowCase from "./components/showcase/pages/InputBoxShowCase.jsx";
 
 const App = createBrowserRouter([
   {
@@ -68,6 +71,18 @@ const App = createBrowserRouter([
       {
         path: "LogoCloud",
         element: <LogoCloudShowCasePage />,
+      },
+      {
+        path: "DropDown",
+        element: <DropDownShowCase />,
+      },
+      {
+        path: "Tabs",
+        element: <TabsShowCase />,
+      },
+      {
+        path: "PinInput",
+        element: <InputBoxShowCase />,
       },
     ],
   },

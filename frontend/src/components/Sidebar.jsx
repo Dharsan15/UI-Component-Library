@@ -21,7 +21,7 @@ function SideList({ value, selected, setSelected }) {
   );
 }
 
-const values = ["Accordian", "Alert", "Buttons", "Cards", "LogoCloud", "Input"];
+const values = ["Accordian", "Alert", "Buttons", "DropDown", "LogoCloud", "Tabs" , "PinInput"];
 
 function Sidebar() {
   const location = useLocation();

@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 import "../index.css";
 import("tailwindcss").Config;
 import FeaturesSection from "./FeaturesSection";
+import Footer from "./Footer";
 
 const LandingPage = () => {
   return (
@@ -13,6 +14,7 @@ const LandingPage = () => {
       {/* <NavBar /> */}
       <HeroSection />
       <FeaturesSection />
+      <Footer />
     </div>
   );
 };
